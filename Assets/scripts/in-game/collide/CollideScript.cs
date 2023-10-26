@@ -7,13 +7,13 @@ public class CollideScript : MonoBehaviour
     protected bool isColide = false;
     protected float animationTime;
     protected Vector3 start;
-    protected float randomRange =0.03f;
+    protected float randomRange = 0.03f;      //Растояние на которое смещается объект от исходного положения при столкновении
     protected LevelController controller;
     public AudioClip collideAudio;
     protected AudioSource audioComponent;
     private void Start()
-    { 
-            audioComponent = GetComponent<AudioSource>();
+    {
+        audioComponent = GetComponent<AudioSource>();
         controller = FindAnyObjectByType<LevelController>();
         animationTime = controller.collideTime;
         randomRange = controller.randomRange;

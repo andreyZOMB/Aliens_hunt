@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+//Анимирует движение объекта, должен находиться на каждом подвижном объекте
 public class MoveScript : MonoBehaviour
 {
     private float startTime;

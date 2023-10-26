@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System;
-using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 
+//Один экземпляр на сцену
 public class HintSystem : MonoBehaviour
 {
     public List<int4> correctPath = new();
@@ -13,13 +10,14 @@ public class HintSystem : MonoBehaviour
     [SerializeField]
     private LevelController controller;
     [SerializeField]
-    private GameObject hintObjPrefab;
+    private GameObject hintObjPrefab;           //Объект появляющийся в качестве указателя
     [SerializeField]
-    private bool writeHints = false;
+    private bool writeHints = false;            //Используется для записи правильного маршрута, при игре в редакторе
+                                                //Маршрут необходимо скопировать в переменную correctPath
     [SerializeField]
-    private int hintsAmmount = 5;
+    private int hintsAmmount = 5;               //Кол-во подсказок выдоваемое за раз
     private GameObject hintObject;
-    private int hintsAvailable = 0;
+    private int hintsAvailable = 0;             //Оставшееся кол-во ходов с подсказкой
 
 
     public void WriteStep(int4 step)

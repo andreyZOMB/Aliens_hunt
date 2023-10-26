@@ -17,6 +17,7 @@ public class PathSpline : MonoBehaviour
         float3 right;
         List<float3> m_vertsP1 = new();
         List<float3> m_vertsP2 = new();
+        //Находит точки для вершин
         while (j <= 1)
         {
             spline.Evaluate( j, out float3 position, out float3 forward, out _);
@@ -38,7 +39,7 @@ public class PathSpline : MonoBehaviour
 
         int length = m_vertsP2.Count;
 
-        //Iterate verts and build a face
+        //Заполняет массивы вершин и полигонов
         for (int i = 1; i <= length; i+=2)
         {
             Vector3 p1 = m_vertsP1[i - 1];
@@ -59,6 +60,7 @@ public class PathSpline : MonoBehaviour
             
         }
 
+        //Создаёт меш
         m.SetVertices(verts);
         m.SetTriangles(tris, 0);
         MeshFilter filter = gameObject.GetComponent<MeshFilter>();

@@ -13,7 +13,8 @@ public class LevelStart : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    public void NextLevel()
+    //Не используется, так как может начать ещё не доступный игроку уровень
+    /*public void NextLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
@@ -23,5 +24,5 @@ public class LevelStart : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-    }
+    }*/
 }

@@ -5,23 +5,25 @@ using UnityEngine.UI;
 
 public class LevelIcon : MonoBehaviour
 {
-    public List<GameObject> levels = new();
+    public List<GameObject> levels = new();       //Уровни которые необходимо пройти перед этим
     public SplineContainer spline;
     public GameObject pathSpline;
     public float knotDistance = 0.75f;
     public int stepsLeft = -1;
-    public bool orAnd = false;
-    public Sprite complete;
-    public Sprite available;
+    public bool orAnd = false;                    //Необходимо ли проходить все уровни из level перед этим уровнем
+    public Sprite completeIcon;
+    public Sprite availableIcon;
 
+
+    //Проверяет доступность этого уровня и строит дорожки(PathSpline) между уровнями
     public void Init()
 
     {
         Image image_component = gameObject.GetComponent<Image>();
         if (stepsLeft>=0)
-            image_component.sprite = complete;
+            image_component.sprite = completeIcon;
         else
-            image_component.sprite = available;
+            image_component.sprite = availableIcon;
 
         int length = levels.Count;
         bool active;
@@ -89,6 +91,3 @@ public class LevelIcon : MonoBehaviour
         }
     }
 }
-
-
-

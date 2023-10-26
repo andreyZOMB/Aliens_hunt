@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+//Должен быть на каждом объекте взаимодействующес с другими
 public class ObjectControl : MonoBehaviour
 {
     [NonSerialized]
@@ -40,6 +41,10 @@ public class ObjectControl : MonoBehaviour
             }
         }
     }
+
+    //Проверяет возможность предвижения объекта
+    //В случае успеха вызывает MoveScript.StartMove
+    //В случае провала вызывает СollideScript.Collide
     public void Move(int2 dir)
     {
         //check

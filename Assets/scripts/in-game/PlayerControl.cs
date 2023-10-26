@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+//Один экземпляр на сцену, должен распологаться на одном объекте с Level Controller
 public class PlayerControl : MonoBehaviour
 {
     private Vector2 startTouchPosition;
@@ -11,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     private int2 pos;
     private LevelController controller;
     private ObjectControl obj;
-    private bool active = true;
+    private bool readTouch = true;
     [SerializeField]
     private HintSystem hintSystem;
     void Start()
@@ -20,8 +21,9 @@ public class PlayerControl : MonoBehaviour
     }
     void Update()
     {
-        if (active)
+        if (readTouch)
         {
+            //В начале касания запрашивает объект из LevelController и проверяет можно ли его передвинуть
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 startTouchPosition = Input.GetTouch(0).position;
@@ -29,8 +31,7 @@ public class PlayerControl : MonoBehaviour
                 Physics.Raycast(ray, out hit);
                 float3 p = (hit.point - controller.transform.position) / controller.CellSize;
                 pos = new int2((int)p.x, (int)p.z);
-                pos = controller.ClampIndex(pos);
-                if (controller.cellArray[pos.x, pos.y] != null)
+                if (controller.ValidIndex(pos)&& controller.cellArray[pos.x, pos.y] != null&& controller.cellArray[pos.x, pos.y].isStatic ==false)
                 {
                     obj = controller.cellArray[pos.x, pos.y].GetComponent<ObjectControl>();
                 }
@@ -39,7 +40,11 @@ public class PlayerControl : MonoBehaviour
                     obj = null;
                 }
             }
-
+            //В конце касания расчитывает куда произошло движение
+            //В случае успеха:
+            //Передаёт в ObjectControl направление движения
+            //Выключает считывание касаний
+            //Отложенно вызывает включение считываний касаний и Check в LevelController
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 if (obj != null)
@@ -92,10 +97,10 @@ public class PlayerControl : MonoBehaviour
     }
     public void Enable()
     {
-        active = true;
+        readTouch = true;
     }
     public void Disable()
     {
-        active = false;
+        readTouch = false;
     }
 }

@@ -3,6 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Один экземпляр на сцену
 public class MenuController : MonoBehaviour
 {
     private LevelIcon[] levels;
@@ -12,6 +13,8 @@ public class MenuController : MonoBehaviour
         Debug.Log(levels.Length);
         LoadProgress();
     }
+
+    //Записывает в LevelIcon.stepsLeft значения из сохранения
     private void LoadProgress()
     {
         SaveProgress progress;

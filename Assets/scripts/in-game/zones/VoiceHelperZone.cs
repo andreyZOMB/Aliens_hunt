@@ -4,6 +4,8 @@ using UnityEngine;
 public class VoiceHelperZone : Zone
 {
     System.Random random = new();
+    //ѕри вызове проигрывает звук голосового помошника и через случайные
+    //промежутки времени включает звук на всех остальных голосовых помошниках на сцене
     public override void Worked()
     {
         base.Worked();

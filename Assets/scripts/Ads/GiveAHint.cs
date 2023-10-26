@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -10,6 +8,8 @@ public class GiveAHint : Rewarded
     [SerializeField]
     private HintSystem hintSystem;
 
+    //ѕеред показом подсказки провер€ет пройденный игроком путь на совпадение с правильным
+    //¬ случае совпадени€ передаЄт управление в HintSystem
     public override void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
     {
         if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))

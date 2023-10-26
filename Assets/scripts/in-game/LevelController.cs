@@ -4,20 +4,17 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.Universal;
 
-
+//Один экземпляр на сцену
 public class LevelController : MonoBehaviour
 {
-
-
-    public float CellSize = 30f;
+    public float CellSize = 1f;
     public int xLength = 10;
     public int yLength = 10;
     public float moveTime = 0.3f;
     public float collideTime = 0.5f;
     public float randomRange = 0.03f;
-    public ObjectControl[,] cellArray;
+    public ObjectControl[,] cellArray;      //Хранит информацию о занятых объектами клетках
     [SerializeField]
     private GameObject winCanvas;
     [SerializeField]
@@ -27,13 +24,13 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private GameObject winDialogCanvas;
     [SerializeField]
-    private Text stepsLeftField;
-    public int stepCount;
+    private Text stepsLeftField;           
+    public int stepCount;                   //Хранит доступное кол-во ходов
     [SerializeField]
     private GameObject adsController;
     [SerializeField]
     private HintSystem hintSystem;
-    private bool gameEnded = false;
+    private bool gameEnded = false;         //Используется для защиты от повторного вызова содержимого функций Win,Lose
     private string filePath;
     private SaveProgress progress;
 
@@ -75,14 +72,8 @@ public class LevelController : MonoBehaviour
         if (index.x < xLength && index.y < yLength && index.x > 0 && index.y > 0) return true;
         return false;
     }
-    public int2 ClampIndex(int2 index)
-    {
-        if (index.x > xLength) index.x = xLength;
-        else if (index.x < 0) index.x = 0;
-        if (index.y > yLength) index.y = yLength;
-        else if (index.y < 0) index.y = 0;
-        return index;
-    }
+
+    //Записывает в сохранение количество шагов оставшихся после выполнения уровня
     private void UpdateProgress()
     {
 
@@ -117,6 +108,12 @@ public class LevelController : MonoBehaviour
     {
         stepsLeftField.text = stepCount.ToString();
     }
+
+    //Проверяет нахождение объектов в пределах Zone, в зависимости от поля Zone.zoneName вызывет функции:
+    //Zone.Worked
+    //Win
+    //Lose
+    //Human.WakeUp
     public void Check()
     {
         stepCount--;
